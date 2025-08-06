@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${product.name}">Product Detail | GymStore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #fefbf6;
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #ff4081;
+      --primary: #6c63ff;
+      --button-color: #6c63ff;
+      --button-hover: #4e50cc;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+    }
+
+    .navbar {
+      background: #fff;
+      padding: 16px 32px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: var(--accent);
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .product-image img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .product-image img:hover {
+      transform: scale(1.04);
+    }
+
+    .product-details {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .product-details h2 {
+      font-size: 32px;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .product-details p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .product-details p span {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .cart-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .cart-buttons a button,
+    .cart-buttons form button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background: var(--button-color);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .cart-buttons a button:hover,
+    .cart-buttons form button:hover {
+      background-color: var(--button-hover);
+    }
+
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border-top: 1px solid #ddd;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--primary);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .product-container {
+        flex-direction: column;
+        padding: 30px 20px;
+      }
+
+      .product-details h2 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="logo"><i class="fas fa-dumbbell"></i>PowerHuB</div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </header>
+
+  <main class="product-container">
+    <div class="product-image">
+      <img th:src="${product.imageurl}" alt="Image of [[${product.name}]]" />
+    </div>
+
+    <div class="product-details">
+      <h2 th:text="${product.name}">Product Name</h2>
+      <p th:text="${product.description}">This is the description.</p>
+      <p>Price: ₹<span th:text="${product.price}">999</span></p>
+
+      <div class="cart-buttons">
+        <a href="/Checkout">
+          <button type="button"><i class="fas fa-bolt"></i> Buy Now</button>
+        </a>
+
+        <form th:action="@{/add-to-cart/{id}(id=${product.id})}" method="post">
+          <button type="submit"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 GymStore | All rights reserved.</p>
+    <div>
+      <a href="#">Privacy</a> |
+      <a href="#">Terms</a> |
+      <a href="#">Support</a>
+    </div>
+  </footer>
+</body>
+</html>

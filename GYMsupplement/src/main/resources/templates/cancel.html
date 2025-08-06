@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Cancelled | GymStore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --neon: #00f7ff;
+      --neon-dark: #00c4cc;
+      --bg-dark: #0d0d0d;
+      --bg-box: #1a1a1a;
+      --text-light: #f1f1f1;
+      --text-muted: #aaa;
+      --accent-red: #ff4444;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top left, var(--bg-dark), var(--bg-box));
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cancel-icon {
+      font-size: 80px;
+      color: var(--accent-red);
+      text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 8px var(--accent-red); }
+      50% { text-shadow: 0 0 20px var(--accent-red); }
+      100% { text-shadow: 0 0 8px var(--accent-red); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--accent-red);
+      text-shadow: 0 0 10px #ff0000aa, 0 0 20px #ff000055;
+      margin: 20px 0 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    a {
+      text-decoration: none;
+      background: var(--neon);
+      color: #000;
+      padding: 12px 26px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    a:hover {
+      background: var(--neon-dark);
+      box-shadow: 0 0 10px var(--neon);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--neon);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .cancel-icon {
+        font-size: 60px;
+      }
+
+      a {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cancel-icon">
+    <i class="fas fa-times-circle"></i>
+  </div>
+  <h1>Payment Cancelled</h1>
+  <p>Your payment was not completed.<br>You can review your cart and try again.</p>
+  <a href="/cart">← Back to Cart</a>
+
+  <footer>
+    <p>&copy; 2025 GymStore | All rights reserved.</p>
+    <div>
+      <a href="#">Privacy</a> | 
+      <a href="#">Terms</a> | 
+      <a href="#">Support</a>
+    </div>
+  </footer>
+</body>
+</html>

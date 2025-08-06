@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | GymStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-light: #fefbf6;
+      --accent: #ff4081;
+      --primary: #6c63ff;
+      --primary-hover: #5548e0;
+      --text-dark: #1a1a1a;
+      --text-muted: #666;
+      --shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: var(--accent);
+    }
+
+    .form-box {
+      max-width: 450px;
+      margin: 80px auto;
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-box h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary);
+      font-size: 28px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: var(--primary);
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      background: #f8f8f8;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(108, 99, 255, 0.2);
+    }
+
+    .error-message {
+      color: #ff4c4c;
+      font-size: 13px;
+      margin-top: 4px;
+      margin-left: 5px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-hover);
+      cursor: pointer;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 15px;
+    }
+
+    .form-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
+    footer {
+      background: white;
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      margin-top: 80px;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .form-box {
+        margin: 40px 20px;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo"><i class="fas fa-dumbbell"></i>PowerHuB</div>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+  </ul>
+</header>
+
+<div class="form-box">
+  <h2>Create Account</h2>
+  <form th:action="@{/registeruser}" th:object="${user}" method="post">
+
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input type="text" th:field="*{username}" placeholder="Username" />
+    </div>
+    <div class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+    <div class="input-group">
+      <i class="fas fa-envelope"></i>
+      <input type="email" th:field="*{email}" placeholder="Email" />
+    </div>
+    <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" th:field="*{password}" placeholder="Password" />
+    </div>
+    <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+    <button type="submit" class="submit-btn">Register</button>
+  </form>
+
+  <div class="form-footer">
+    Already have an account? <a href="/login">Login</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 GymStore | All rights reserved.</p>
+  <div>
+    <a href="#">Privacy</a> |
+    <a href="#">Terms</a> |
+    <a href="#">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>
